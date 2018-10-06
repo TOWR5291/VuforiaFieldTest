@@ -300,8 +300,9 @@ public class ConceptForEvent extends LinearOpMode {
         //telemetry.addData("Target", targetFound.getName());
         double turnTo = 0;
         double turnToWithGyro = 0;
+        Orientation angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
         if (targetFound.getName().equals("BlueRover")){
-            Orientation angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             if (imu.isGyroCalibrated()) {
                 if (rotationZDegree > 0 && rotationZDegree < 90){
                     turnTo = 90 - rotationZDegree;
@@ -330,12 +331,36 @@ public class ConceptForEvent extends LinearOpMode {
                     angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                     gyroDrive(.1, targetXin, angles.firstAngle);
                 }
-                //gyroTurn(.1, rotationZDegree - angles.firstAngle);
-                //gyroTurn(.1, TurnToHeading(rotationDegree.thirdAngle));
-                //Thread.sleep(2000);
-                //angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                //float distance = -targetYin;
-                //gyroDrive(.3, distance, angles.firstAngle);
+            }
+        } else if (targetFound.getName().equals("RedFootprint")){
+            if(imu.isGyroCalibrated()){
+                if (rotationZDegree < 0 && rotationZDegree > -90){
+                    turnTo = 90 - rotationZDegree;
+                    turnToWithGyro = turnTo + angles.firstAngle;
+                    gyroTurn(.1, turnToWithGyro + 180);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, -targetYin, angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroTurn(.1, 90 + angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, targetXin, angles.firstAngle);
+                }
+
+                if (rotationZDegree < -90 && rotationZDegree > -180){
+                    turnTo = 180 - rotationZDegree;
+                    turnToWithGyro = turnTo + angles.firstAngle;
+                    gyroTurn(.1, turnToWithGyro + 90);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, -targetYin, angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroTurn(.1, 90 + angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, targetXin, angles.firstAngle);
+                }
             }
         }
 
