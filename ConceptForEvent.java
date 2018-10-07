@@ -362,6 +362,66 @@ public class ConceptForEvent extends LinearOpMode {
                     gyroDrive(.1, targetXin, angles.firstAngle);
                 }
             }
+        }  else if (targetFound.getName().equals("FrontCraters")){
+            if(imu.isGyroCalibrated()){
+                if (rotationZDegree > 90 && rotationZDegree < 180){
+                    turnTo = 90 - rotationZDegree;
+                    turnToWithGyro = turnTo + angles.firstAngle;
+                    gyroTurn(.1, turnToWithGyro + 90);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, -targetXin, angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroTurn(.1, 90 + angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, -targetYin, angles.firstAngle);
+                }
+
+                if (rotationZDegree < -90 && rotationZDegree > -180){
+                    turnTo = 180 - rotationZDegree;
+                    turnToWithGyro = turnTo + angles.firstAngle;
+                    gyroTurn(.1, turnToWithGyro + 180);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, targetXin, angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroTurn(.1, 90 + angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, targetYin, angles.firstAngle);
+                }
+            }
+        }  else if (targetFound.getName().equals("BackSpace")){
+            if(imu.isGyroCalibrated()){
+                if (rotationZDegree > 0 && rotationZDegree > -90){
+                    turnTo = 90 - rotationZDegree;
+                    turnToWithGyro = turnTo + angles.firstAngle;
+                    gyroTurn(.1, turnToWithGyro + 180);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, -targetYin, angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroTurn(.1, 90 + angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, targetXin, angles.firstAngle);
+                }
+
+                if (rotationZDegree < -90 && rotationZDegree > -180){
+                    turnTo = 180 - rotationZDegree;
+                    turnToWithGyro = turnTo + angles.firstAngle;
+                    gyroTurn(.1, turnToWithGyro + 90);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, -targetYin, angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroTurn(.1, 90 + angles.firstAngle);
+                    Thread.sleep(3000);
+                    angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    gyroDrive(.1, targetXin, angles.firstAngle);
+                }
+            }
         }
 
         telemetry.update();
